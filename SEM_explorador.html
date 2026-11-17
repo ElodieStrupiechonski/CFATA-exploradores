@@ -67,23 +67,23 @@ body.big .side{display:none}body.big .main{grid-template-columns:1fr}body.big .t
    <div class="card"><h2>Lecturas</h2><div class="read">
    <span>Longitud de onda del electrón</span><b id="r1"></b>
    <span>Rapidez</span><b id="r2"></b>
-   <span>Alcance estimado dentro del MoSe₂</span><b id="r3"></b>
+   <span>Alcance estimado dentro del WSe₂</span><b id="r3"></b>
    <span>Diámetro del haz en la muestra</span><b id="r4"></b>
    <span>Magnificación (pantalla de 10 cm)</span><b id="r5"></b></div>
-   <p class="small" style="margin:6px 0 0">Imagen simulada de cristales laminares hexagonales sobre un sustrato. Alcance: fórmula de Kanaya y Okayama (1972), https://doi.org/10.1088/0022-3727/5/1/308, con valores promedio para MoSe₂.</p>
+   <p class="small" style="margin:6px 0 0">Imagen simulada de cristales bidimensionales triangulares y hexagonales sobre un sustrato. Alcance: fórmula de Kanaya y Okayama (1972), https://doi.org/10.1088/0022-3727/5/1/308, con valores promedio para WSe₂.</p>
   </div>
    <details class="eq"><summary>¿Cómo se llama esto en el equipo?</summary><p><b>Voltaje de aceleración:</b> «HV», «EHT» o «Accelerating voltage» (kV).</p><p><b>Ancho de la zona barrida:</b> se elige con «Mag» (magnificación) o «HFW / Field of view».</p><p><b>Enfoque:</b> «Focus»; la distancia de la lente a la muestra es «WD» (working distance).</p><p><b>Diámetro y corriente del haz:</b> «Spot size» o «Probe current».</p><p><b>Detectores:</b> secundarios «SE» o «ETD»; retrodispersados «BSE» o «BSD»; rayos X «EDS» o «EDX».</p><p><b>Tiempo por pixel:</b> «Dwell time» o «Scan speed»: más lento, menos ruido.</p></details>
   </div>
   <div class="pane" id="pane-qs" hidden><div class="card"><h2>Para conversar frente al equipo</h2>
    <details><summary>1. ¿Dónde está la lente que forma la imagen?</summary><p>No la hay. Las lentes magnéticas solo concentran el haz en un punto; la imagen se arma pixel por pixel: el brillo de cada pixel es la señal contada cuando el haz estaba en esa posición.</p></details>
    <details><summary>2. ¿Cómo se aumenta la magnificación?</summary><p>Barriendo una zona más pequeña y mostrándola en la misma pantalla: magnificación = ancho de la pantalla / ancho barrido. No se cambia ninguna lente; se reduce la corriente de las bobinas de barrido.</p></details>
-   <details><summary>3. ¿Por qué los bordes brillan con electrones secundarios y no con retrodispersados?</summary><p>Los secundarios tienen poca energía y solo escapan desde los primeros nanómetros; en un borde hay más superficie por donde salir. Los retrodispersados vienen de más adentro y dependen sobre todo del número atómico: el cristal (Mo, Se) se ve más claro que el sustrato.</p></details>
+   <details><summary>3. ¿Por qué los bordes brillan con electrones secundarios y no con retrodispersados?</summary><p>Los secundarios tienen poca energía y solo escapan desde los primeros nanómetros; en un borde hay más superficie por donde salir. Los retrodispersados vienen de más adentro y dependen sobre todo del número atómico: el cristal (W, Se) se ve más claro que el sustrato.</p></details>
    <details><summary>4. ¿Más voltaje da siempre mejor imagen?</summary><p>La longitud de onda baja, pero el electrón penetra más y la señal sale de un volumen mayor: se pierde detalle de la superficie. Comparemos 2 kV y 30 kV con el detector de retrodispersados y la zona barrida pequeña.</p></details>
   </div></div>
-  <div class="pane" id="pane-rep" hidden><div class="card"><h2>Mis datos de la demostración</h2><p class="small" style="margin:0 0 6px">Anotamos los valores del cuaderno. Para la magnificación y los tamaños medimos con regla sobre la imagen impresa o en pantalla.</p><div class="fields"><label for="d_V">Voltaje de aceleración (kV)</label><input id="d_V" type="text" inputmode="decimal" placeholder="10"><label for="d_bv">Valor de la barra de escala (µm)</label><input id="d_bv" type="text" inputmode="decimal" placeholder=""><label for="d_bl">Longitud de la barra medida con regla (cm)</label><input id="d_bl" type="text" inputmode="decimal" placeholder=""><label for="d_cl">Tamaño del cristal medido con regla (cm)</label><input id="d_cl" type="text" inputmode="decimal" placeholder=""><label for="d_mo">EDS: Mo (% atómico)</label><input id="d_mo" type="text" inputmode="decimal" placeholder=""><label for="d_se">EDS: Se (% atómico)</label><input id="d_se" type="text" inputmode="decimal" placeholder=""></div><div class="seg" style="margin-top:8px"><button class="b" id="use">Usar mi voltaje en la figura</button></div></div>
+  <div class="pane" id="pane-rep" hidden><div class="card"><h2>Mis datos de la demostración</h2><p class="small" style="margin:0 0 6px">Anotamos los valores del cuaderno. Para la magnificación y los tamaños medimos con regla sobre la imagen impresa o en pantalla.</p><div class="fields"><label for="d_V">Voltaje de aceleración (kV)</label><input id="d_V" type="text" inputmode="decimal" placeholder="10"><label for="d_bv">Valor de la barra de escala (µm)</label><input id="d_bv" type="text" inputmode="decimal" placeholder=""><label for="d_bl">Longitud de la barra medida con regla (cm)</label><input id="d_bl" type="text" inputmode="decimal" placeholder=""><label for="d_cl">Tamaño del cristal medido con regla (cm)</label><input id="d_cl" type="text" inputmode="decimal" placeholder=""><label for="d_mo">EDS: W (% atómico)</label><input id="d_mo" type="text" inputmode="decimal" placeholder=""><label for="d_se">EDS: Se (% atómico)</label><input id="d_se" type="text" inputmode="decimal" placeholder=""></div><div class="seg" style="margin-top:8px"><button class="b" id="use">Usar mi voltaje en la figura</button></div></div>
    <div class="card"><h2>Resultados para el reporte</h2><div class="read" id="out"></div>
     <div class="seg" style="margin-top:8px"><button class="b" id="cpy">Copiar resumen</button><button class="b" id="png">Descargar la figura (.png)</button></div><div class="small" id="fbk"></div>
-    <p class="small" style="margin:6px 0 0"><b>Cómo citar:</b> Strupiechonski, E. (2026). Exploradores AFM, SEM y Raman [recurso interactivo]. https://elodiestrupiechonski.github.io/CFATA-exploradores/</p></div></div>
+    <p class="small" style="margin:6px 0 0"><b>Cómo citar:</b> Strupiechonski, E., & De Luna Bugallo, A. (2026). Exploradores AFM, SEM y Raman [recurso interactivo]. https://elodiestrupiechonski.github.io/CFATA-exploradores/</p></div></div>
  </div>
 </div>
 <script>
@@ -113,13 +113,13 @@ function savePNG(cv,name,cap){var c=document.createElement("canvas"),pad=Math.ro
 (function(){
 var cv=$("cv"),g,P={V:10,fov:100,foc:0,det:"SE"};
 var GW=220,GH=165,off=document.createElement("canvas");off.width=GW;off.height=GH;var ox=off.getContext("2d"),img=ox.createImageData(GW,GH),sig=new Float32Array(GW*GH),row=0,hold=0;
-var FL=[[30,32,17,0.2,3],[66,24,9,0.9,2],[74,58,14,0.5,4],[40,62,7,1.3,1],[16,58,6,0.1,2],[90,40,5,0.7,1],[55,44,4,1.0,1]];
-function hexd(px,py,c){var dx=px-c[0],dy=py-c[1],cs=Math.cos(c[3]),sn=Math.sin(c[3]),u=Math.abs(dx*cs+dy*sn),w=Math.abs(-dx*sn+dy*cs);return Math.max(u*0.866+w*0.5,w);}
-function height(px,py){var hh=0;for(var i=0;i<FL.length;i++){var c=FL[i],d=hexd(px,py,c),a=c[2]*0.866;for(var k=0;k<c[4];k++){if(d<a*(1-0.2*k))hh=Math.max(hh,k+1);}}return hh;}
+var FL=[[30,30,22,0.2,2,1],[68,24,12,2.3,1,1],[76,58,18,1.2,2,1],[40,64,8,1.3,1,0],[14,60,9,0.6,1,1],[92,38,7,3.0,1,1],[54,43,6,1.0,1,0]];
+function hexd(px,py,c){var dx=px-c[0],dy=py-c[1],cs=Math.cos(c[3]),sn=Math.sin(c[3]),u=Math.abs(dx*cs+dy*sn),w=-dx*sn+dy*cs;if(c[5])return Math.max(-w,u*0.866+w*0.5);w=Math.abs(w);return Math.max(u*0.866+w*0.5,w);}
+function height(px,py){var hh=0;for(var i=0;i<FL.length;i++){var c=FL[i],d=hexd(px,py,c),a=c[2]*(c[5]?0.5:0.866);for(var k=0;k<c[4];k++){if(d<a*(1-0.2*k))hh=Math.max(hh,k+1);}}return hh;}
 function fovUm(){return 4*Math.pow(25,P.fov/100);}            // 4 a 100 µm
 function spotNm(){var f=P.foc/100;return 4+3000*f*f;}
 function phys(){var E=P.V*1e3*1.602e-19,mc2=511e3*1.602e-19,lam=6.626e-34/Math.sqrt(2*9.109e-31*E*(1+E/(2*mc2))),gam=1+E/mc2,beta=Math.sqrt(1-1/(gam*gam));
- var A=(95.95+2*78.97)/3,Z=(42+2*34)/3,rho=6.90,Rk=0.0276*A*Math.pow(P.V,1.67)/(Math.pow(Z,0.89)*rho);return {lam:lam,beta:beta,R:Rk};}
+ var A=(183.84+2*78.97)/3,Z=(74+2*34)/3,rho=9.32,Rk=0.0276*A*Math.pow(P.V,1.67)/(Math.pow(Z,0.89)*rho);return {lam:lam,beta:beta,R:Rk};}
 function compute(){var F=fovUm(),px=F/GW,cx=50,cy=41,ph=phys(),H=new Float32Array(GW*GH),M=new Float32Array(GW*GH),i,j;
  for(j=0;j<GH;j++)for(i=0;i<GW;i++){var X=cx+(i-GW/2)*px,Y=cy+(j-GH/2)*px,hh=height(X,Y);H[j*GW+i]=hh;M[j*GW+i]=hh>0?1:0;}
  for(j=0;j<GH;j++)for(i=0;i<GW;i++){var k=j*GW+i,gx=H[j*GW+Math.min(GW-1,i+1)]-H[j*GW+Math.max(0,i-1)],gy=H[Math.min(GH-1,j+1)*GW+i]-H[Math.max(0,j-1)*GW+i],e=Math.min(1,Math.abs(gx)+Math.abs(gy));
@@ -177,13 +177,13 @@ tour([
  {t:"Más voltaje, más profundidad",s:"A 30 kV la longitud de onda es menor, pero el electrón penetra micrómetros y la señal sale de un volumen mayor: se pierde detalle fino de la superficie.",set:{V:30,fov:35,foc:0,det:"BSE"}}],setP);
 (function(){var ids=["d_V","d_bv","d_bl","d_cl","d_mo","d_se"],D=load("cfata_sem")||{};ids.forEach(function(i){if(D[i]!=null)$(i).value=D[i];$(i).addEventListener("input",calc);});
  function calc(){var d={};ids.forEach(function(i){d[i]=$(i).value;});store("cfata_sem",d);var V=num(d.d_V),bv=num(d.d_bv),bl=num(d.d_bl),cl=num(d.d_cl),mo=num(d.d_mo),se=num(d.d_se),R=[];
-  if(ok(V)){var E=V*1e3*1.602e-19,mc2=511e3*1.602e-19,lam=6.626e-34/Math.sqrt(2*9.109e-31*E*(1+E/(2*mc2))),gam=1+E/mc2,A=(95.95+2*78.97)/3,Z=(42+2*34)/3,Rk=0.0276*A*Math.pow(V,1.67)/(Math.pow(Z,0.89)*6.90);
-   R.push(["Longitud de onda del electrón",fmt(lam*1e12,3)+" pm"]);R.push(["Rapidez del electrón",fmt(Math.sqrt(1-1/(gam*gam)),3)+" c"]);R.push(["Alcance estimado en MoSe₂",Rk<1?fmt(Rk*1000,2)+" nm":fmt(Rk,2)+" µm"]);}
+  if(ok(V)){var E=V*1e3*1.602e-19,mc2=511e3*1.602e-19,lam=6.626e-34/Math.sqrt(2*9.109e-31*E*(1+E/(2*mc2))),gam=1+E/mc2,A=(183.84+2*78.97)/3,Z=(74+2*34)/3,Rk=0.0276*A*Math.pow(V,1.67)/(Math.pow(Z,0.89)*9.32);
+   R.push(["Longitud de onda del electrón",fmt(lam*1e12,3)+" pm"]);R.push(["Rapidez del electrón",fmt(Math.sqrt(1-1/(gam*gam)),3)+" c"]);R.push(["Alcance estimado en WSe₂",Rk<1?fmt(Rk*1000,2)+" nm":fmt(Rk,2)+" µm"]);}
   if(ok(bv)&&ok(bl)){var M=bl*1e-2/(bv*1e-6);R.push(["Magnificación de mi imagen",fmt(M,3)+" ×"]);if(ok(cl))R.push(["Tamaño real del cristal",fmt(cl/bl*bv,3)+" µm"]);}
-  if(ok(mo)&&ok(se))R.push(["Cociente Se/Mo (esperado: 2)",fmt(se/mo,3)]);
+  if(ok(mo)&&ok(se))R.push(["Cociente Se/W (esperado: 2)",fmt(se/mo,3)]);
   out(R,"Escribimos al menos el voltaje.");return R;}
  $("use").onclick=function(){var V=num($("d_V").value);if(ok(V)){setP({V:Math.max(1,Math.min(30,Math.round(V)))});$("fbk").textContent="La figura usa el voltaje anotado (entre 1 y 30 kV).";}};
- $("cpy").onclick=function(){var R=calc();copyText("SEM · cristales de MoSe₂\n"+ids.map(function(i){return $(i).previousElementSibling.textContent+": "+($(i).value||"sin dato");}).join("\n")+"\n\nResultados\n"+R.map(function(r){return r[0]+": "+r[1];}).join("\n")+"\n\nFuente: Strupiechonski, E. (2026). Exploradores AFM, SEM y Raman [recurso interactivo]. https://elodiestrupiechonski.github.io/CFATA-exploradores/");};
+ $("cpy").onclick=function(){var R=calc();copyText("SEM · cristales de WSe₂\n"+ids.map(function(i){return $(i).previousElementSibling.textContent+": "+($(i).value||"sin dato");}).join("\n")+"\n\nResultados\n"+R.map(function(r){return r[0]+": "+r[1];}).join("\n")+"\n\nFuente: Strupiechonski, E., & De Luna Bugallo, A. (2026). Exploradores AFM, SEM y Raman [recurso interactivo]. https://elodiestrupiechonski.github.io/CFATA-exploradores/");};
  $("png").onclick=function(){savePNG(cv,"SEM_explorador.png","SEM (imagen simulada): "+P.V+" kV, zona barrida "+fmt(fovUm(),2)+" µm, detector "+(P.det==="SE"?"de secundarios":"de retrodispersados"));};
  calc();})();
 loop();

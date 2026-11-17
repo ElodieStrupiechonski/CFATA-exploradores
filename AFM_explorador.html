@@ -49,7 +49,7 @@ body.big .side{display:none}body.big .main{grid-template-columns:1fr}body.big .t
 </style>
 </head>
 <body>
-<div class="top"><span class="eyebrow">Visita al CFATA · Estación 1</span><h1>AFM: la punta palpa la superficie</h1><nav><a class="on" href="AFM_explorador.html">AFM</a><a href="SEM_explorador.html">SEM</a><a href="Raman_explorador.html">Raman</a></nav></div>
+<div class="top"><span class="eyebrow">Visita al CFATA · Estación 1</span><h1>AFM en modo intermitente: la punta palpa la superficie</h1><nav><a class="on" href="AFM_explorador.html">AFM</a><a href="SEM_explorador.html">SEM</a><a href="Raman_explorador.html">Raman</a></nav></div>
 <div class="main" id="main">
  <div class="left">
   <div class="stage"><canvas id="cv" role="img" aria-label="Punta de AFM que barre una rejilla de escalones; debajo, el perfil medido comparado con el real"></canvas></div>
@@ -62,7 +62,7 @@ body.big .side{display:none}body.big .main{grid-template-columns:1fr}body.big .t
    <div class="ctl"><label for="h">Altura del escalón, h</label><output id="ho"></output><input type="range" id="h" min="20" max="200" step="5" value="100"></div>
    <div class="ctl"><label for="th">Semiángulo de la punta</label><output id="tho"></output><input type="range" id="th" min="5" max="40" step="1" value="20"></div>
    <div class="ctl"><label for="R">Radio del ápice</label><output id="Ro"></output><input type="range" id="R" min="2" max="60" step="1" value="10"></div>
-   <div class="ctl"><label for="v">Rapidez de barrido</label><output id="vo"></output><input type="range" id="v" min="1" max="10" step="1" value="2"></div>
+   <div class="ctl"><label for="v">Rapidez de barrido (la animación no se acelera)</label><output id="vo"></output><input type="range" id="v" min="1" max="10" step="1" value="2"></div>
    <div class="seg"><button class="b" id="pp">Pausa</button></div>
   </div>
    <div class="card"><h2>Lecturas</h2><div class="read">
@@ -70,7 +70,7 @@ body.big .side{display:none}body.big .main{grid-template-columns:1fr}body.big .t
    <span>Meseta real / meseta medida (a media altura)</span><b id="r2"></b>
    <span>Altura medida</span><b id="r3"></b>
    <span>Periodo medido</span><b id="r6"></b>
-   <span>Error del lazo de control (máximo)</span><b id="r4"></b></div>
+   <span>Error del lazo de control (máximo, en altura)</span><b id="r4"></b></div>
    <p class="small" style="margin:6px 0 0">Esquema con periodo reducido (400 nm) para que la punta se vea; las rejillas reales tienen periodos de micrómetros. Palanca óptica: 1 nm de flexión mueve la mancha del láser unos 0.7 µm en el fotodiodo (viga de 225 µm, fotodiodo a 5 cm).</p>
   </div>
    <details class="eq"><summary>¿Cómo se llama esto en el equipo?</summary><p><b>Rapidez de barrido:</b> «Scan rate», en hertz (líneas por segundo).</p><p><b>Valor que el lazo mantiene constante:</b> «Setpoint» (flexión en modo contacto, amplitud en modo intermitente).</p><p><b>Rapidez de respuesta del lazo:</b> «Gain» (ganancias proporcional e integral).</p><p><b>Modo intermitente:</b> «Tapping» o «AC mode». <b>Señal de error:</b> «Error», «Deflection» o «Amplitude».</p><p><b>Perfil de alturas:</b> «Section» o «Line profile» sobre la imagen «Height».</p></details>
@@ -84,7 +84,7 @@ body.big .side{display:none}body.big .main{grid-template-columns:1fr}body.big .t
   <div class="pane" id="pane-rep" hidden><div class="card"><h2>Mis datos de la demostración</h2><p class="small" style="margin:0 0 6px">Anotamos los valores del cuaderno; los resultados se calculan al escribir. Los datos se guardan en este navegador.</p><div class="fields"><label for="d_pn">Periodo nominal de la rejilla (µm)</label><input id="d_pn" type="text" inputmode="decimal" placeholder="3.0"><label for="d_pm">Periodo medido (µm)</label><input id="d_pm" type="text" inputmode="decimal" placeholder=""><label for="d_hn">Altura nominal del escalón (nm)</label><input id="d_hn" type="text" inputmode="decimal" placeholder=""><label for="d_hm">Altura medida (nm)</label><input id="d_hm" type="text" inputmode="decimal" placeholder=""><label for="d_k">Constante elástica de la viga, k (N/m)</label><input id="d_k" type="text" inputmode="decimal" placeholder="40"><label for="d_f">Frecuencia de resonancia, f₀ (kHz)</label><input id="d_f" type="text" inputmode="decimal" placeholder="300"><label for="d_th">Semiángulo de la punta (°), si se conoce</label><input id="d_th" type="text" inputmode="decimal" placeholder="20"></div><div class="seg" style="margin-top:8px"><button class="b" id="use">Ver mi escalón en la figura</button></div></div>
    <div class="card"><h2>Resultados para el reporte</h2><div class="read" id="out"></div>
     <div class="seg" style="margin-top:8px"><button class="b" id="cpy">Copiar resumen</button><button class="b" id="png">Descargar la figura (.png)</button></div><div class="small" id="fbk"></div>
-    <p class="small" style="margin:6px 0 0"><b>Cómo citar:</b> Strupiechonski, E. (2026). Exploradores AFM, SEM y Raman [recurso interactivo]. https://elodiestrupiechonski.github.io/CFATA-exploradores/</p></div></div>
+    <p class="small" style="margin:6px 0 0"><b>Cómo citar:</b> Strupiechonski, E., & De Luna Bugallo, A. (2026). Exploradores AFM, SEM y Raman [recurso interactivo]. https://elodiestrupiechonski.github.io/CFATA-exploradores/</p></div></div>
  </div>
 </div>
 <script>
@@ -128,7 +128,7 @@ function recompute(){var i,j,K=Math.ceil(260/DX);for(i=0;i<N;i++)surf[i]=S(i*DX)
  var u1=-1,u2=-1;for(i=1;i<N;i++){if(path[i-1]<P.h/2&&path[i]>=P.h/2){if(u1<0)u1=i;else if(u2<0)u2=i;}}$("r6").textContent=(u2>0?fmt((u2-u1)*DX,3):"400")+" nm (real: 400 nm)";
  xi=0;zc=path[0];maxErr=0;for(i=0;i<N;i++)meas[i]=NaN;
  $("ho").textContent=P.h+" nm";$("tho").textContent=P.th+"°";$("Ro").textContent=P.R+" nm";$("vo").textContent=P.v+" (1 = lento)";}
-function stepSim(){var n=P.v;for(var k=0;k<n;k++){if(xi>=N){xi=0;zc=path[0];maxErr=0;for(var i=0;i<N;i++)meas[i]=NaN;}
+function stepSim(){var n=P.v>=6?1:2;for(var k=0;k<n;k++){if(xi>=N){xi=0;zc=path[0];maxErr=0;for(var i=0;i<N;i++)meas[i]=NaN;}
   var al=Math.min(1,1.6/Math.pow(P.v,1.35));zc+=(path[xi]-zc)*al;errNow=path[xi]-zc;maxErr=Math.max(maxErr,Math.abs(errNow));meas[xi]=zc;xi++;}
  $("r4").textContent=fmt(maxErr,2)+" nm";}
 function draw(){g=fit(cv);var x=g.x,W=g.W,H=g.H;x.fillStyle="#fff";x.fillRect(0,0,W,H);
@@ -140,9 +140,9 @@ function draw(){g=fit(cv);var x=g.x,W=g.W,H=g.H;x.fillStyle="#fff";x.fillRect(0,
  x.lineTo(X(WN),y0+16);x.closePath();x.fill();x.stroke();
  txt(x,"muestra: rejilla de escalones",X(0)+4,y0+13,ACC,12);
  // punta
- var ix=Math.min(N-1,Math.max(0,xi-1)),ax=X(ix*DX),zt=isNaN(meas[ix])?path[ix]:meas[ix],pen=Math.max(0,path[ix]-zt),ay=Y(path[ix]),hT=150;
+ var ix=Math.min(N-1,Math.max(0,xi-1)),ax=X(ix*DX),zt=isNaN(meas[ix])?path[ix]:meas[ix],pen=Math.max(0,path[ix]-zt),osc=run?8*(1+Math.sin(Date.now()/40)):0,ay=Y(path[ix]+osc),hT=150;
  x.fillStyle=NAVY;x.beginPath();var u,first=true,um=hT*Math.tan(P.th*Math.PI/180)+P.R;for(u=-um;u<=um;u+=0.5){var tt=Math.min(hT,tip(u));if(first){x.moveTo(ax+u*sc,ay-tt*sc);first=false;}else x.lineTo(ax+u*sc,ay-tt*sc);}
- x.closePath();x.fill();txt(x,"punta",ax+um*sc+8,ay-hT*sc*0.8,NAVY,12);
+ x.closePath();x.fill();txt(x,"punta (oscila a f₀)",ax+um*sc+8,ay-hT*sc*0.8,NAVY,12);
  var by=ay-hT*sc,tilt=Math.max(-0.12,Math.min(0.12,errNow/200));
  x.save();x.translate(ax,by);x.rotate(-tilt);x.fillStyle="#8E99AD";x.strokeStyle=NAVY;x.lineWidth=1.2;x.beginPath();x.rect(-W*0.34,-7,W*0.34+16,9);x.fill();x.stroke();x.restore();
  txt(x,"viga (resorte k)",Math.max(8,ax-W*0.3),by-14,NAVY,12);
@@ -169,7 +169,7 @@ $("pp").onclick=function(){run=!run;this.textContent=run?"Pausa":"Continuar";};
 function setP(o){for(var k in o){P[k]=o[k];if($(k))$(k).value=o[k];}recompute();}
 tabs();
 tour([
- {t:"Así palpa la punta",s:"La viga se flexiona al tocar; el láser reflejado convierte esa flexión en un movimiento de la mancha sobre el fotodiodo. El lazo de control sube o baja z para mantener la señal constante: z(x) es la imagen.",set:{h:100,th:8,R:4,v:2}},
+ {t:"Así palpa la punta en modo intermitente",s:"La viga oscila a su frecuencia de resonancia y la punta toca la superficie un instante en cada ciclo. El láser reflejado mide la amplitud de la oscilación; el lazo de control sube o baja z para mantenerla constante: z(x) es la imagen.",set:{h:100,th:8,R:4,v:2}},
  {t:"Una punta real tiene ancho",s:"El costado del cono toca la pared antes que el ápice. La pared vertical aparece inclinada (ancho cercano a h · tan θ) y las mesetas se ensanchan.",set:{h:100,th:32,R:10,v:2}},
  {t:"Una punta gastada",s:"Con un ápice romo las esquinas se redondean. En una imagen real se reconoce porque todos los objetos pequeños aparecen con la misma forma: la de la punta.",set:{h:100,th:20,R:55,v:2}},
  {t:"Barrer demasiado rápido",s:"El lazo no alcanza a corregir: la traza se retrasa y la mancha del láser se sale del centro del fotodiodo. En el equipo se baja la rapidez de barrido o se sube la ganancia.",set:{h:100,th:20,R:10,v:9}},
@@ -183,7 +183,7 @@ tour([
   var h=ok(hm)?hm:hn;if(ok(h)&&ok(th)){var w=h*Math.tan(th*Math.PI/180);R.push(["Ancho aparente esperado de cada pared, h · tan θ",fmt(w,3)+" nm"]);var p=ok(pm)?pm:pn;if(ok(p))R.push(["Ese ancho como fracción del periodo",fmt(100*w/(p*1000),2)+" %"]);}
   out(R,"Escribimos al menos un par de datos.");return R;}
  $("use").onclick=function(){var h=num($("d_hm").value)||num($("d_hn").value),th=num($("d_th").value),o={};if(ok(h))o.h=Math.max(20,Math.min(200,Math.round(h/5)*5));if(ok(th))o.th=Math.max(5,Math.min(40,Math.round(th)));setP(o);$("fbk").textContent="La figura usa la altura y el semiángulo anotados (dentro del intervalo del modelo: 20 a 200 nm, 5° a 40°).";};
- $("cpy").onclick=function(){var R=calc();copyText("AFM · rejilla de calibración\n"+ids.map(function(i){return $(i).previousElementSibling.textContent+": "+($(i).value||"sin dato");}).join("\n")+"\n\nResultados\n"+R.map(function(r){return r[0]+": "+r[1];}).join("\n")+"\n\nFuente: Strupiechonski, E. (2026). Exploradores AFM, SEM y Raman [recurso interactivo]. https://elodiestrupiechonski.github.io/CFATA-exploradores/");};
+ $("cpy").onclick=function(){var R=calc();copyText("AFM · rejilla de calibración\n"+ids.map(function(i){return $(i).previousElementSibling.textContent+": "+($(i).value||"sin dato");}).join("\n")+"\n\nResultados\n"+R.map(function(r){return r[0]+": "+r[1];}).join("\n")+"\n\nFuente: Strupiechonski, E., & De Luna Bugallo, A. (2026). Exploradores AFM, SEM y Raman [recurso interactivo]. https://elodiestrupiechonski.github.io/CFATA-exploradores/");};
  $("png").onclick=function(){savePNG(cv,"AFM_explorador.png","AFM (modelo): h = "+P.h+" nm, semiángulo "+P.th+"°, radio del ápice "+P.R+" nm, rapidez "+P.v);};
  calc();})();
 loop();
