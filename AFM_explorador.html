@@ -77,7 +77,7 @@ body.big .side{display:none}body.big .main{grid-template-columns:1fr}body.big .t
    <span>Viga típica</span><b id="m2"></b>
    <span>Contacto con la muestra</span><b id="m3"></b>
    <span>Canal adicional</span><b id="m4"></b></div>
-   <p class="small" style="margin:6px 0 0">Esquema con periodo reducido (400 nm) para que la punta se vea; las rejillas reales tienen periodos de micrómetros. Palanca óptica: 1 nm de flexión mueve la mancha del láser unos 0.7 µm en el fotodiodo (viga de 225 µm, fotodiodo a 5 cm).</p>
+   <p class="small" style="margin:6px 0 0">Esquema fuera de escala: el periodo está reducido a 400 nm (las rejillas reales tienen periodos de micrómetros) y la punta real es mucho más alta que el escalón (de 10 a 15 µm), en una viga de cientos de micrómetros. Palanca óptica: 1 nm de flexión mueve la mancha del láser unos 0.7 µm en el fotodiodo (viga de 225 µm, fotodiodo a 5 cm).</p>
   </div>
    <details class="eq"><summary>¿Cómo se llama esto en el equipo?</summary><p><b>Modo contacto:</b> «Contact mode»; el lazo mantiene «Deflection setpoint». Canales: «Height» (alturas), «Deflection error» (flexión) y «Lateral» o «Friction».</p><p><b>Modo intermitente:</b> «Tapping» o «AC mode»; el lazo mantiene «Amplitude setpoint». Antes se sintoniza la viga («Tune»: amplitud contra frecuencia, máximo en f₀). Canales: «Height», «Amplitude error» y «Phase».</p><p><b>Rapidez de barrido:</b> «Scan rate», en hertz (líneas por segundo). <b>Respuesta del lazo:</b> «Gain» (ganancias proporcional e integral).</p><p><b>Perfil de alturas:</b> «Section» o «Line profile» sobre la imagen «Height».</p></details>
   </div>
@@ -157,12 +157,12 @@ function stepSim(){var n=P.v>=6?1:2;for(var k=0;k<n;k++){if(xi>=N)reset();
   var al=Math.min(1,1.6/Math.pow(P.v,1.35));zc+=(path[xi]-zc)*al;errNow=path[xi]-zc;maxErr=Math.max(maxErr,Math.abs(errNow));meas[xi]=zc;sigNow=signal(errNow);sigA[xi]=sigNow;xi++;}
  $("r4").textContent=fmt(maxErr,2)+" nm";}
 function draw(){g=fit(cv);var x=g.x,W=g.W,H=g.H,c=P.mode==="c";x.fillStyle="#fff";x.fillRect(0,0,W,H);
- var topH=H*0.47,hT=90,sc=Math.min((W-40)/WN,(topH-74)/(hT+P.h+46)),x0=(W-WN*sc)/2,y0=topH-22,xp=44,wp=W-xp-56;
+ var topH=H*0.47,hT=Math.max(130,P.h+50),sc=Math.min((W-40)/WN,(topH-74)/(hT+P.h+46)),x0=(W-WN*sc)/2,y0=topH-22,xp=44,wp=W-xp-56;
  function X(n){return x0+n*sc;}function Y(z){return y0-z*sc;}
  x.fillStyle="#F3D9C8";x.strokeStyle=ACC;x.lineWidth=1.6;x.beginPath();x.moveTo(X(0),y0+14);x.lineTo(X(0),Y(surf[0]));
  for(var i=1;i<N;i++){if(surf[i]!==surf[i-1]){x.lineTo(X(i*DX),Y(surf[i-1]));}x.lineTo(X(i*DX),Y(surf[i]));}
  x.lineTo(X(WN),y0+14);x.closePath();x.fill();x.stroke();
- txt(x,"muestra: rejilla de escalones",X(0)+4,y0+12,ACC,11);
+ txt(x,"muestra: rejilla de escalones, sobre el escáner piezoeléctrico (x, y, z)",X(0)+4,y0+12,ACC,11);
  var ix=Math.min(N-1,Math.max(0,xi-1)),ax=X(ix*DX),lift=c?Math.max(0,-(D0+errNow)):0,osc=c?0:(run?sigNow*(1+Math.sin(Date.now()/40))/2:0),ay=Y(path[ix]+lift+osc);
  x.fillStyle=NAVY;x.beginPath();var u,first=true,um=hT*Math.tan(P.th*Math.PI/180)+P.R;for(u=-um;u<=um;u+=0.5){var tt=Math.min(hT,tip(u));if(first){x.moveTo(ax+u*sc,ay-tt*sc);first=false;}else x.lineTo(ax+u*sc,ay-tt*sc);}
  x.closePath();x.fill();txt(x,c?"punta (siempre en contacto)":"punta (oscila a f₀)",ax+um*sc+8,ay-hT*sc*0.8,NAVY,12);
