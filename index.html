@@ -14,8 +14,9 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,"Helvetica
 .top nav{margin-left:auto;display:flex;gap:6px}
 .top nav a{font-size:12.5px;font-weight:700;text-decoration:none;color:var(--navy);border:1px solid var(--line);background:#fff;border-radius:8px;padding:3px 9px}
 .top nav a.on{background:var(--navy);color:#fff;border-color:var(--navy)}
-.main{display:grid;grid-template-columns:minmax(0,1.75fr) minmax(300px,1fr);gap:12px;padding:4px 14px 10px;height:calc(100vh - 48px)}
-.stage{background:#fff;border:1px solid var(--line);border-radius:12px;min-height:0;position:relative;overflow:hidden}
+.main{display:grid;grid-template-columns:minmax(0,1.75fr) minmax(320px,1fr);gap:12px;padding:4px 14px 10px;height:calc(100vh - 48px)}
+.left{display:flex;flex-direction:column;gap:8px;min-height:0;min-width:0}
+.stage{background:#fff;border:1px solid var(--line);border-radius:12px;min-height:0;flex:1;position:relative;overflow:hidden}
 canvas{display:block;width:100%;height:100%}
 .side{display:flex;flex-direction:column;gap:8px;min-height:0;overflow:auto}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:9px 13px}
@@ -32,12 +33,27 @@ details{border-left:4px solid var(--acc);background:var(--soft);border-radius:6p
 details summary{cursor:pointer;font-weight:700;color:var(--navy)}
 details p{margin:5px 0 2px}
 .small{font-size:12px;color:var(--muted)}
-@media (max-width:900px){.main{grid-template-columns:1fr;height:auto}.stage{height:62vh}.side{overflow:visible}}
-.wrap{max-width:980px;margin:0 auto;padding:6px 16px 30px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin:14px 0}.link{text-decoration:none;color:inherit;display:block}.link:hover{border-color:var(--navy)}.link p{margin:6px 0 0;font-size:14px}.eyebrow{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);font-weight:700}body{height:auto}
+.tour{display:flex;gap:8px;align-items:stretch;background:#fff;border:1px solid var(--line);border-left:5px solid var(--acc);border-radius:12px;padding:7px 9px}
+.tour button{font:inherit;font-weight:700;border:1px solid var(--line);background:#fff;border-radius:9px;cursor:pointer;color:var(--navy)}
+#tprev,#tnext{font-size:26px;line-height:1;min-width:46px}#tnext{background:var(--navy);color:#fff;border-color:var(--navy)}
+#big{font-size:12px;padding:0 9px}.tour button:disabled{opacity:.35;cursor:default}
+.ttext{flex:1;min-width:0}.tt{font-weight:700;color:var(--navy);font-size:15px}.ts{font-size:14.5px;margin-top:1px}
+.tabs{margin:0}.tabs button{flex:1}
+.pane{display:flex;flex-direction:column;gap:8px}.pane[hidden]{display:none}
+details.eq{margin:0}details.eq p{margin:4px 0;font-size:13px}
+.fields{display:grid;grid-template-columns:1fr 104px;gap:5px 8px;align-items:center}.fields label{font-size:13px}
+.fields input{font:inherit;font-size:14px;padding:5px 7px;border:1px solid var(--line);border-radius:7px;width:100%}
+#d_p{grid-column:1/3}label[for=d_p]{grid-column:1/3}
+body.big .side{display:none}body.big .main{grid-template-columns:1fr}body.big .tt{font-size:19px}body.big .ts{font-size:18px}
+@media (max-width:900px){.main{grid-template-columns:1fr;height:auto}.stage{height:58vh;flex:none}.side{overflow:visible}.ts{font-size:14px}#big{display:none}}
+.wrap{max-width:980px;margin:0 auto;padding:6px 16px 30px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin:14px 0}.link{text-decoration:none;color:inherit;display:block}.link:hover{border-color:var(--navy)}.link p,.how{margin:6px 0 0;font-size:14px}.eyebrow{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);font-weight:700}body{height:auto}
 </style>
 </head>
 <body>
 <div class="top"><span class="eyebrow">Teoría Electromagnética · ENES Juriquilla, UNAM</span><h1>Tres maneras de ver lo muy pequeño</h1></div>
-<div class="wrap"><p>Exploradores interactivos preparados para la visita al Centro de Física Aplicada y Tecnología Avanzada (CFATA, UNAM). Cada uno se abre frente al instrumento, de 5 a 10 minutos antes de la demostración, e incluye preguntas para conversar con el grupo.</p><div class="grid"><a class="card link" href="AFM_explorador.html"><span class="eyebrow">Estación 1</span><h2>AFM: la punta palpa la superficie</h2><p>Una punta barre una rejilla de escalones. Se compara el perfil medido con el real al cambiar la forma de la punta y la rapidez de barrido.</p></a><a class="card link" href="SEM_explorador.html"><span class="eyebrow">Estación 2</span><h2>SEM: un haz que barre y un detector que cuenta</h2><p>La imagen se forma punto por punto. Se exploran el voltaje, la zona barrida, el enfoque y el tipo de detector.</p></a><a class="card link" href="Raman_explorador.html"><span class="eyebrow">Estación 3</span><h2>Raman: la vibración modula la luz esparcida</h2><p>El dipolo inducido y su espectro: líneas Rayleigh, Stokes y anti-Stokes, con el eje en corrimiento o en longitud de onda.</p></a></div><p class="small">Los exploradores son modelos simplificados con valores típicos; los datos reales se leen en cada equipo. Autora: Elodie Strupiechonski.</p></div>
+<div class="wrap"><p>Exploradores interactivos preparados para la visita al Centro de Física Aplicada y Tecnología Avanzada (CFATA, UNAM): un microscopio de fuerza atómica, un microscopio electrónico de barrido y un espectrómetro Raman.</p><div class="grid"><a class="card link" href="AFM_explorador.html"><span class="eyebrow">Estación 1</span><h2>AFM: la punta palpa la superficie</h2><p>Una punta barre una rejilla de escalones. Se compara el perfil medido con el real al cambiar la forma de la punta y la rapidez de barrido.</p></a><a class="card link" href="SEM_explorador.html"><span class="eyebrow">Estación 2</span><h2>SEM: un haz que barre y un detector que cuenta</h2><p>La imagen se forma punto por punto. Se exploran el voltaje, la zona barrida, el enfoque y el tipo de detector.</p></a><a class="card link" href="Raman_explorador.html"><span class="eyebrow">Estación 3</span><h2>Raman: la vibración modula la luz esparcida</h2><p>El dipolo inducido y su espectro: líneas Rayleigh, Stokes y anti-Stokes, con el eje en corrimiento o en longitud de onda.</p></a></div><div class="grid">
+<div class="card"><h2>Para quien da la demostración</h2><p class="how">Debajo de cada figura hay un guion de cinco o seis pasos. Cada paso acomoda los controles y propone qué decir; se avanza con las flechas de la pantalla o del teclado (← →). «Ampliar» deja solo la figura y el guion, para mostrarlos al grupo. La pestaña «Preguntas» trae preguntas para el grupo con su idea clave, y en «Controles» se indica cómo se llama cada ajuste en el programa del equipo. Duración prevista: de 5 a 10 minutos por estación.</p></div>
+<div class="card"><h2>Para quien escribe su reporte</h2><p class="how">En la pestaña «Para el reporte» anotamos los datos del cuaderno (voltaje, barra de escala, picos observados, alturas) y la página calcula las cantidades derivadas con sus unidades. Un botón lleva esos datos a la figura, «Descargar la figura» guarda la imagen con sus parámetros al pie y «Copiar resumen» entrega el texto listo para pegar, con la forma de citar el recurso. Los datos quedan guardados en el navegador.</p></div>
+</div><p class="small">Los exploradores son modelos simplificados con valores típicos: sirven para entender el principio de operación y para comprobar cálculos, pero no sustituyen las imágenes ni los espectros medidos en el equipo. Autora: Elodie Strupiechonski.</p></div>
 </body>
 </html>
