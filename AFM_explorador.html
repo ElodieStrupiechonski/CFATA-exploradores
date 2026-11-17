@@ -46,10 +46,11 @@ details.eq{margin:0}details.eq p{margin:4px 0;font-size:13px}
 #d_p{grid-column:1/3}label[for=d_p]{grid-column:1/3}
 body.big .side{display:none}body.big .main{grid-template-columns:1fr}body.big .tt{font-size:19px}body.big .ts{font-size:18px}
 @media (max-width:900px){.main{grid-template-columns:1fr;height:auto}.stage{height:58vh;flex:none}.side{overflow:visible}.ts{font-size:14px}#big{display:none}}
+.cmp{border-collapse:collapse;width:100%;font-size:12.5px}.cmp th{background:var(--navy);color:#fff;text-align:left;padding:4px 6px}.cmp td{border-bottom:1px solid var(--line);padding:4px 6px;vertical-align:top}.cmp td:first-child{font-weight:700;color:var(--navy);white-space:nowrap}
 </style>
 </head>
 <body>
-<div class="top"><span class="eyebrow">Visita al CFATA · Estación 1</span><h1>AFM en modo intermitente: la punta palpa la superficie</h1><nav><a class="on" href="AFM_explorador.html">AFM</a><a href="SEM_explorador.html">SEM</a><a href="Raman_explorador.html">Raman</a></nav></div>
+<div class="top"><span class="eyebrow">Visita al CFATA · Estación 1</span><h1>AFM: la punta palpa la superficie</h1><nav><a class="on" href="AFM_explorador.html">AFM</a><a href="SEM_explorador.html">SEM</a><a href="Raman_explorador.html">Raman</a></nav></div>
 <div class="main" id="main">
  <div class="left">
   <div class="stage"><canvas id="cv" role="img" aria-label="Punta de AFM que barre una rejilla de escalones; debajo, el perfil medido comparado con el real"></canvas></div>
@@ -59,6 +60,7 @@ body.big .side{display:none}body.big .main{grid-template-columns:1fr}body.big .t
   <div class="tabs seg" id="tabs"><button class="on" data-v="ctl">Controles</button><button data-v="qs">Preguntas</button><button data-v="rep">Para el reporte</button></div>
   <div class="pane" id="pane-ctl">
    <div class="card"><h2>Controles</h2>
+   <div class="seg" id="mode"><button data-v="c">Modo contacto</button><button class="on" data-v="t">Modo intermitente (tapping)</button></div>
    <div class="ctl"><label for="h">Altura del escalón, h</label><output id="ho"></output><input type="range" id="h" min="20" max="200" step="5" value="100"></div>
    <div class="ctl"><label for="th">Semiángulo de la punta</label><output id="tho"></output><input type="range" id="th" min="5" max="40" step="1" value="20"></div>
    <div class="ctl"><label for="R">Radio del ápice</label><output id="Ro"></output><input type="range" id="R" min="2" max="60" step="1" value="10"></div>
@@ -70,12 +72,31 @@ body.big .side{display:none}body.big .main{grid-template-columns:1fr}body.big .t
    <span>Meseta real / meseta medida (a media altura)</span><b id="r2"></b>
    <span>Altura medida</span><b id="r3"></b>
    <span>Periodo medido</span><b id="r6"></b>
-   <span>Error del lazo de control (máximo, en altura)</span><b id="r4"></b></div>
+   <span>Error del lazo de control (máximo, en altura)</span><b id="r4"></b>
+   <span>Señal que el lazo mantiene constante</span><b id="m1"></b>
+   <span>Viga típica</span><b id="m2"></b>
+   <span>Contacto con la muestra</span><b id="m3"></b>
+   <span>Canal adicional</span><b id="m4"></b></div>
    <p class="small" style="margin:6px 0 0">Esquema con periodo reducido (400 nm) para que la punta se vea; las rejillas reales tienen periodos de micrómetros. Palanca óptica: 1 nm de flexión mueve la mancha del láser unos 0.7 µm en el fotodiodo (viga de 225 µm, fotodiodo a 5 cm).</p>
   </div>
-   <details class="eq"><summary>¿Cómo se llama esto en el equipo?</summary><p><b>Rapidez de barrido:</b> «Scan rate», en hertz (líneas por segundo).</p><p><b>Valor que el lazo mantiene constante:</b> «Setpoint» (flexión en modo contacto, amplitud en modo intermitente).</p><p><b>Rapidez de respuesta del lazo:</b> «Gain» (ganancias proporcional e integral).</p><p><b>Modo intermitente:</b> «Tapping» o «AC mode». <b>Señal de error:</b> «Error», «Deflection» o «Amplitude».</p><p><b>Perfil de alturas:</b> «Section» o «Line profile» sobre la imagen «Height».</p></details>
+   <details class="eq"><summary>¿Cómo se llama esto en el equipo?</summary><p><b>Modo contacto:</b> «Contact mode»; el lazo mantiene «Deflection setpoint». Canales: «Height» (alturas), «Deflection error» (flexión) y «Lateral» o «Friction».</p><p><b>Modo intermitente:</b> «Tapping» o «AC mode»; el lazo mantiene «Amplitude setpoint». Antes se sintoniza la viga («Tune»: amplitud contra frecuencia, máximo en f₀). Canales: «Height», «Amplitude error» y «Phase».</p><p><b>Rapidez de barrido:</b> «Scan rate», en hertz (líneas por segundo). <b>Respuesta del lazo:</b> «Gain» (ganancias proporcional e integral).</p><p><b>Perfil de alturas:</b> «Section» o «Line profile» sobre la imagen «Height».</p></details>
   </div>
-  <div class="pane" id="pane-qs" hidden><div class="card"><h2>Para conversar frente al equipo</h2>
+  <div class="pane" id="pane-qs" hidden><div class="card"><h2>Contacto frente a intermitente</h2>
+   <table class="cmp"><tr><th></th><th>Contacto</th><th>Intermitente (tapping)</th></tr>
+   <tr><td>La punta</td><td>toca siempre y se arrastra</td><td>oscila a f₀ y toca un instante por ciclo</td></tr>
+   <tr><td>El lazo mantiene</td><td>la flexión de la viga (fuerza F = kz)</td><td>la amplitud de oscilación</td></tr>
+   <tr><td>Viga</td><td>blanda (0.01 a 1 N/m)</td><td>rígida (10 a 50 N/m), f₀ de cientos de kHz</td></tr>
+   <tr><td>Fuerza lateral</td><td>sí: puede arrastrar o dañar</td><td>casi nula</td></tr>
+   <tr><td>Señal de error</td><td>flexión: sube al subir un escalón</td><td>amplitud: baja al subir un escalón</td></tr>
+   <tr><td>Canal adicional</td><td>fricción (torsión de la viga)</td><td>fase (distingue materiales)</td></tr>
+   <tr><td>Conviene para</td><td>muestras duras y planas; medir fricción y fuerzas; trabajo en líquido</td><td>muestras blandas o poco adheridas (partículas, cristales 2D); cuidar la punta</td></tr>
+   <tr><td>Costo</td><td>desgaste de punta y muestra</td><td>más lento; hay que sintonizar la viga</td></tr></table></div>
+  <div class="card"><h2>Para conversar frente al equipo</h2>
+   <details><summary>A. ¿Qué es lo mismo en los dos modos?</summary><p>La imagen de alturas: en ambos el lazo mueve z para mantener una señal constante, y z(x, y) es la topografía. También la deformación por la forma de la punta. Cambia qué señal se mantiene y cuánto se perturba la muestra.</p></details>
+   <details><summary>B. ¿Cómo se lee la imagen de error en cada modo?</summary><p>Si el lazo fuera perfecto, la señal de error sería plana. En la práctica resalta los bordes: en contacto la flexión aumenta al subir un escalón y disminuye al bajar; en intermitente es al revés, la amplitud disminuye al subir y aumenta al bajar. No es una altura: es lo que el lazo no alcanzó a corregir.</p></details>
+   <details><summary>C. ¿Qué pasa al bajar un escalón demasiado rápido?</summary><p>En contacto la flexión llega a cero: la punta se despega. En intermitente la amplitud llega a su valor libre: la punta oscila en el aire sin tocar. En los dos casos el lazo deja de recibir información hasta que vuelve a encontrar la superficie.</p></details>
+   <details><summary>D. ¿Qué informa la imagen de fase del modo intermitente?</summary><p>El retraso entre la fuerza que excita la viga y su oscilación. Cambia con la energía que la punta disipa en cada toque, así que distingue materiales (duro o blando, adhesivo o no) aunque tengan la misma altura. Es contraste de material, no relieve.</p></details>
+   <details><summary>E. ¿Por qué para cristales bidimensionales se prefiere el modo intermitente?</summary><p>Están apenas adheridos al sustrato y miden menos de un nanómetro de espesor: la fuerza lateral del modo contacto puede moverlos, plegarlos o rayarlos.</p></details>
    <details><summary>1. ¿Qué parte de la punta toca primero la pared del escalón?</summary><p>El costado del cono, antes que el ápice. Por eso la pared vertical aparece inclinada: su ancho aparente es cercano a h · tan(semiángulo). Probemos con 5° y con 40°.</p></details>
    <details><summary>2. ¿Qué se mide bien y qué se mide mal?</summary><p>La altura se mide bien (la punta sí llega al fondo y a la cima); los anchos no: las mesetas se ensanchan y las zanjas se angostan. La imagen combina la forma de la muestra con la forma de la punta.</p></details>
    <details><summary>3. ¿Qué ocurre si barremos demasiado rápido?</summary><p>El lazo de control no alcanza a corregir z: la traza se retrasa y redondea los bordes, y la viga se flexiona de más (la mancha del láser se sale del centro del fotodiodo). Una imagen de calidad toma minutos.</p></details>
@@ -112,13 +133,15 @@ function savePNG(cv,name,cap){var c=document.createElement("canvas"),pad=Math.ro
  var a=document.createElement("a");a.href=c.toDataURL("image/png");a.download=name;document.body.appendChild(a);a.click();a.remove();$("fbk").textContent="Figura descargada con sus parámetros al pie.";}
 
 (function(){
-var cv=$("cv"),g,P={h:100,th:20,R:10,v:2},run=true;
-var PER=400,WN=1200,DX=2,N=WN/DX+1,surf=new Float32Array(N),path=new Float32Array(N),meas=new Float32Array(N),xi=0,zc=0,maxErr=0,errNow=0;
+var cv=$("cv"),g,P={h:100,th:20,R:10,v:2,mode:"t"},run=true;
+var PER=400,WN=1200,DX=2,N=WN/DX+1,surf=new Float32Array(N),path=new Float32Array(N),meas=new Float32Array(N),sigA=new Float32Array(N),xi=0,zc=0,maxErr=0,errNow=0,sigNow=0;
+var D0=5,A0=30,ASP=21;                     // contacto: flexión de consigna (nm); intermitente: amplitud libre y de consigna (nm)
 function S(xn){var m=((xn%PER)+PER)%PER;return (m>=100&&m<300)?P.h:0;}
 function tip(u){var t=P.th*Math.PI/180,ut=P.R*Math.cos(t),a=Math.abs(u);if(a<=ut)return P.R-Math.sqrt(P.R*P.R-a*a);return P.R*(1-Math.sin(t))+(a-ut)/Math.tan(t);}
+function signal(e){return P.mode==="c"?Math.max(0,D0+e):Math.max(0,Math.min(A0,ASP-e));}
+function reset(){xi=0;zc=path[0];maxErr=0;for(var i=0;i<N;i++){meas[i]=NaN;sigA[i]=NaN;}}
 function recompute(){var i,j,K=Math.ceil(260/DX);for(i=0;i<N;i++)surf[i]=S(i*DX);
  for(i=0;i<N;i++){var m=0;for(j=-K;j<=K;j++){var s=S((i+j)*DX)-tip(j*DX);if(s>m)m=s;}path[i]=m;}
- // lecturas geométricas
  var a=-1,b=-1;for(i=0;i<N/2;i++){if(a<0&&path[i]>0.02*P.h)a=i;if(b<0&&path[i]>=0.98*P.h){b=i;break;}}
  $("r1").textContent=fmt((b-a)*DX,2)+" nm";
  var c1=-1,c2=-1;for(i=0;i<N;i++){if(c1<0&&path[i]>=P.h/2)c1=i;if(c1>=0&&c2<0&&path[i]<P.h/2){c2=i;break;}}
@@ -126,54 +149,61 @@ function recompute(){var i,j,K=Math.ceil(260/DX);for(i=0;i<N;i++)surf[i]=S(i*DX)
  var mn=1e9,mx=0;for(i=0;i<N;i++){mn=Math.min(mn,path[i]);mx=Math.max(mx,path[i]);}
  $("r3").textContent=fmt(mx-mn,3)+" nm"+(mn>0.5?" (la punta no llega al fondo)":"");
  var u1=-1,u2=-1;for(i=1;i<N;i++){if(path[i-1]<P.h/2&&path[i]>=P.h/2){if(u1<0)u1=i;else if(u2<0)u2=i;}}$("r6").textContent=(u2>0?fmt((u2-u1)*DX,3):"400")+" nm (real: 400 nm)";
- xi=0;zc=path[0];maxErr=0;for(i=0;i<N;i++)meas[i]=NaN;
- $("ho").textContent=P.h+" nm";$("tho").textContent=P.th+"°";$("Ro").textContent=P.R+" nm";$("vo").textContent=P.v+" (1 = lento)";}
-function stepSim(){var n=P.v>=6?1:2;for(var k=0;k<n;k++){if(xi>=N){xi=0;zc=path[0];maxErr=0;for(var i=0;i<N;i++)meas[i]=NaN;}
-  var al=Math.min(1,1.6/Math.pow(P.v,1.35));zc+=(path[xi]-zc)*al;errNow=path[xi]-zc;maxErr=Math.max(maxErr,Math.abs(errNow));meas[xi]=zc;xi++;}
+ reset();
+ $("ho").textContent=P.h+" nm";$("tho").textContent=P.th+"°";$("Ro").textContent=P.R+" nm";$("vo").textContent=P.v+" (1 = lento)";
+ var c=P.mode==="c";$("m1").textContent=c?"flexión: "+D0+" nm (F = 1 nN)":"amplitud: "+ASP+" nm (libre: "+A0+" nm)";$("m2").textContent=c?"k = 0.2 N/m, f₀ ≈ 13 kHz":"k = 40 N/m, f₀ ≈ 300 kHz";
+ $("m3").textContent=c?"continuo, con fuerza lateral":"un instante por ciclo";$("m4").textContent=c?"fricción (fuerza lateral)":"fase (contraste de material)";}
+function stepSim(){var n=P.v>=6?1:2;for(var k=0;k<n;k++){if(xi>=N)reset();
+  var al=Math.min(1,1.6/Math.pow(P.v,1.35));zc+=(path[xi]-zc)*al;errNow=path[xi]-zc;maxErr=Math.max(maxErr,Math.abs(errNow));meas[xi]=zc;sigNow=signal(errNow);sigA[xi]=sigNow;xi++;}
  $("r4").textContent=fmt(maxErr,2)+" nm";}
-function draw(){g=fit(cv);var x=g.x,W=g.W,H=g.H;x.fillStyle="#fff";x.fillRect(0,0,W,H);
- var topH=H*0.6,sc=Math.min((W-40)/WN,(topH-150)/260),x0=(W-WN*sc)/2,y0=topH-26;
+function draw(){g=fit(cv);var x=g.x,W=g.W,H=g.H,c=P.mode==="c";x.fillStyle="#fff";x.fillRect(0,0,W,H);
+ var topH=H*0.47,sc=Math.min((W-40)/WN,(topH-118)/260),x0=(W-WN*sc)/2,y0=topH-22;
  function X(n){return x0+n*sc;}function Y(z){return y0-z*sc;}
- // muestra
- x.fillStyle="#F3D9C8";x.strokeStyle=ACC;x.lineWidth=1.6;x.beginPath();x.moveTo(X(0),y0+16);x.lineTo(X(0),Y(surf[0]));
+ x.fillStyle="#F3D9C8";x.strokeStyle=ACC;x.lineWidth=1.6;x.beginPath();x.moveTo(X(0),y0+14);x.lineTo(X(0),Y(surf[0]));
  for(var i=1;i<N;i++){if(surf[i]!==surf[i-1]){x.lineTo(X(i*DX),Y(surf[i-1]));}x.lineTo(X(i*DX),Y(surf[i]));}
- x.lineTo(X(WN),y0+16);x.closePath();x.fill();x.stroke();
- txt(x,"muestra: rejilla de escalones",X(0)+4,y0+13,ACC,12);
- // punta
- var ix=Math.min(N-1,Math.max(0,xi-1)),ax=X(ix*DX),zt=isNaN(meas[ix])?path[ix]:meas[ix],pen=Math.max(0,path[ix]-zt),osc=run?8*(1+Math.sin(Date.now()/40)):0,ay=Y(path[ix]+osc),hT=150;
+ x.lineTo(X(WN),y0+14);x.closePath();x.fill();x.stroke();
+ txt(x,"muestra: rejilla de escalones",X(0)+4,y0+12,ACC,11);
+ var ix=Math.min(N-1,Math.max(0,xi-1)),ax=X(ix*DX),hT=120,lift=c?Math.max(0,-(D0+errNow)):0,osc=c?0:(run?sigNow*(1+Math.sin(Date.now()/40))/2:0),ay=Y(path[ix]+lift+osc);
  x.fillStyle=NAVY;x.beginPath();var u,first=true,um=hT*Math.tan(P.th*Math.PI/180)+P.R;for(u=-um;u<=um;u+=0.5){var tt=Math.min(hT,tip(u));if(first){x.moveTo(ax+u*sc,ay-tt*sc);first=false;}else x.lineTo(ax+u*sc,ay-tt*sc);}
- x.closePath();x.fill();txt(x,"punta (oscila a f₀)",ax+um*sc+8,ay-hT*sc*0.8,NAVY,12);
- var by=ay-hT*sc,tilt=Math.max(-0.12,Math.min(0.12,errNow/200));
- x.save();x.translate(ax,by);x.rotate(-tilt);x.fillStyle="#8E99AD";x.strokeStyle=NAVY;x.lineWidth=1.2;x.beginPath();x.rect(-W*0.34,-7,W*0.34+16,9);x.fill();x.stroke();x.restore();
- txt(x,"viga (resorte k)",Math.max(8,ax-W*0.3),by-14,NAVY,12);
- // láser y fotodiodo
- var lx=ax-W*0.16,ly=12,px=Math.min(W-46,ax+W*0.2),py=34;
+ x.closePath();x.fill();txt(x,c?"punta (siempre en contacto)":"punta (oscila a f₀)",ax+um*sc+8,ay-hT*sc*0.8,NAVY,12);
+ var by=ay-hT*sc,tilt=c?Math.max(-0.1,Math.min(0.14,(Math.max(0,D0+errNow)-D0)/160)):0;
+ x.save();x.translate(ax,by);x.rotate(-tilt);x.fillStyle="#8E99AD";x.strokeStyle=NAVY;x.lineWidth=1.2;x.beginPath();x.rect(-W*0.3,-7,W*0.3+16,9);x.fill();x.stroke();x.restore();
+ txt(x,c?"viga blanda: se flexiona":"viga rígida: oscila",Math.max(8,ax-W*0.28),by-13,NAVY,12);
+ var lx=Math.max(40,ax-W*0.14),ly=8,px=Math.min(W-46,ax+W*0.2),py=30;
  x.fillStyle="#F6C9C4";x.strokeStyle=RED;x.lineWidth=1.3;x.beginPath();x.rect(lx-26,ly,52,20);x.fill();x.stroke();txt(x,"láser",lx,ly+15,RED,12,"center",true);
  x.strokeStyle=RED;x.lineWidth=2;x.beginPath();x.moveTo(lx,ly+20);x.lineTo(ax-6,by-8);x.stroke();
- var off=Math.max(-13,Math.min(13,errNow*0.9));
+ var off=c?Math.max(-13,Math.min(13,(Math.max(0,D0+errNow)-D0)*0.7)):(run?sigNow*0.42*Math.sin(Date.now()/40):0);
  x.beginPath();x.moveTo(ax-6,by-8);x.lineTo(px,py-off);x.stroke();
  x.fillStyle="#fff";x.strokeStyle=NAVY;x.lineWidth=1.5;x.beginPath();x.rect(px-16,py-16,32,32);x.fill();x.stroke();x.beginPath();x.moveTo(px,py-16);x.lineTo(px,py+16);x.moveTo(px-16,py);x.lineTo(px+16,py);x.stroke();
- x.fillStyle=RED;x.beginPath();x.arc(px,py-off,4.5,0,7);x.fill();txt(x,"fotodiodo",px,py+31,NAVY,12,"center");
+ x.fillStyle=RED;x.beginPath();x.arc(px,py-off,4.5,0,7);x.fill();txt(x,c?"fotodiodo: mancha desplazada":"fotodiodo: mancha que oscila",px+22,py+5,NAVY,12);
  arrow(x,ax+18,ay-hT*sc*0.45,ax+60,ay-hT*sc*0.45,GREY,1.6);txt(x,"barrido",ax+22,ay-hT*sc*0.45-7,GREY,12);
- // traza
- var gy0=H-30,gh=H-topH-58,zs=gh/Math.max(60,P.h*1.25);
- x.strokeStyle="#c9cdd6";x.lineWidth=1;x.beginPath();x.moveTo(x0,gy0);x.lineTo(x0+WN*sc,gy0);x.moveTo(x0,gy0);x.lineTo(x0,gy0-gh);x.stroke();
- txt(x,"Perfil: real (gris punteado) y medido (verde)",x0+4,topH+16,NAVY,13,"left",true);txt(x,"x (nm)",x0+WN*sc,gy0-8,GREY,12,"right");txt(x,"z",x0+5,gy0-gh+10,GREY,12);
- for(var q=0;q<=WN;q+=200){txt(x,""+q,X(q),gy0+16,GREY,11,"center");}
- x.setLineDash([5,4]);x.strokeStyle="#8a8f9c";x.lineWidth=1.6;x.beginPath();x.moveTo(X(0),gy0-surf[0]*zs);for(i=1;i<N;i++){if(surf[i]!==surf[i-1])x.lineTo(X(i*DX),gy0-surf[i-1]*zs);x.lineTo(X(i*DX),gy0-surf[i]*zs);}x.stroke();x.setLineDash([]);
- x.strokeStyle=GRN;x.lineWidth=2.6;x.beginPath();var st=false;for(i=0;i<N;i++){if(isNaN(meas[i]))break;var yy=gy0-meas[i]*zs;if(!st){x.moveTo(X(i*DX),yy);st=true;}else x.lineTo(X(i*DX),yy);}x.stroke();
+ // ---- dos trazas: alturas y señal de error
+ var ph=(H-topH-74)/2,gA=topH+22+ph,gB=H-26;
+ function axes(gy,title,col){x.strokeStyle="#c9cdd6";x.lineWidth=1;x.beginPath();x.moveTo(x0,gy);x.lineTo(x0+WN*sc,gy);x.moveTo(x0,gy);x.lineTo(x0,gy-ph);x.stroke();txt(x,title,x0+4,gy-ph-6,col,13,"left",true);}
+ axes(gA,"Imagen de alturas z(x): real (gris punteado) y medida (verde). Igual en los dos modos",NAVY);
+ var zs=(ph-8)/Math.max(60,P.h*1.2);
+ x.setLineDash([5,4]);x.strokeStyle="#8a8f9c";x.lineWidth=1.5;x.beginPath();x.moveTo(X(0),gA-surf[0]*zs);for(i=1;i<N;i++){if(surf[i]!==surf[i-1])x.lineTo(X(i*DX),gA-surf[i-1]*zs);x.lineTo(X(i*DX),gA-surf[i]*zs);}x.stroke();x.setLineDash([]);
+ x.strokeStyle=GRN;x.lineWidth=2.5;x.beginPath();var st=false;for(i=0;i<N;i++){if(isNaN(meas[i]))break;var yy=gA-meas[i]*zs;if(!st){x.moveTo(X(i*DX),yy);st=true;}else x.lineTo(X(i*DX),yy);}x.stroke();
+ var top=c?D0+40:A0,ss=(ph-24)/top,col2=c?ACC:PUR;
+ axes(gB,c?"Señal de error en contacto: flexión de la viga":"Señal de error en intermitente: amplitud de oscilación",col2);
+ function hl(v,lab){x.setLineDash([4,4]);x.strokeStyle="#9aa0ad";x.lineWidth=1;x.beginPath();x.moveTo(x0,gB-v*ss);x.lineTo(x0+WN*sc,gB-v*ss);x.stroke();x.setLineDash([]);txt(x,lab,x0+WN*sc-4,gB-v*ss-4,GREY,11,"right");}
+ if(c){hl(D0,"consigna: "+D0+" nm");txt(x,"0: la punta se despega",x0+6,gB-4,GREY,11);}else{hl(ASP,"consigna: "+ASP+" nm");hl(A0,"amplitud libre: "+A0+" nm (la punta no toca)");}
+ x.strokeStyle=col2;x.lineWidth=2.3;x.beginPath();st=false;for(i=0;i<N;i++){if(isNaN(sigA[i]))break;var y2=gB-Math.min(top,sigA[i])*ss;if(!st){x.moveTo(X(i*DX),y2);st=true;}else x.lineTo(X(i*DX),y2);}x.stroke();
+ for(var q=0;q<=WN;q+=200){txt(x,""+q,X(q),gB+15,GREY,11,"center");}txt(x,"x (nm)",x0+WN*sc+8,gB+2,GREY,11);
 }
 function loop(){if(run)stepSim();draw();requestAnimationFrame(loop);}
 ["h","th","R","v"].forEach(function(id){bind(id,function(){P[id]=+$(id).value;recompute();});});
 $("pp").onclick=function(){run=!run;this.textContent=run?"Pausa":"Continuar";};
-function setP(o){for(var k in o){P[k]=o[k];if($(k))$(k).value=o[k];}recompute();}
+function setP(o){for(var k in o){P[k]=o[k];if(k!=="mode"&&$(k))$(k).value=o[k];}$("mode").querySelectorAll("button").forEach(function(b){b.className=b.dataset.v===P.mode?"on":"";});recompute();}
+seg("mode",function(v){P.mode=v;recompute();});
 tabs();
 tour([
- {t:"Así palpa la punta en modo intermitente",s:"La viga oscila a su frecuencia de resonancia y la punta toca la superficie un instante en cada ciclo. El láser reflejado mide la amplitud de la oscilación; el lazo de control sube o baja z para mantenerla constante: z(x) es la imagen.",set:{h:100,th:8,R:4,v:2}},
- {t:"Una punta real tiene ancho",s:"El costado del cono toca la pared antes que el ápice. La pared vertical aparece inclinada (ancho cercano a h · tan θ) y las mesetas se ensanchan.",set:{h:100,th:32,R:10,v:2}},
- {t:"Una punta gastada",s:"Con un ápice romo las esquinas se redondean. En una imagen real se reconoce porque todos los objetos pequeños aparecen con la misma forma: la de la punta.",set:{h:100,th:20,R:55,v:2}},
- {t:"Barrer demasiado rápido",s:"El lazo no alcanza a corregir: la traza se retrasa y la mancha del láser se sale del centro del fotodiodo. En el equipo se baja la rapidez de barrido o se sube la ganancia.",set:{h:100,th:20,R:10,v:9}},
- {t:"Lo que sí es confiable",s:"La altura y el periodo se miden bien aunque los anchos no. Por eso una rejilla de periodo y altura certificados sirve para calibrar el escáner.",set:{h:60,th:20,R:10,v:2}}],setP);
+ {t:"Modo contacto: la punta se arrastra",s:"La punta toca siempre. La muestra empuja la viga y la flexiona; el lazo de control sube o baja z para mantener esa flexión, es decir la fuerza, constante. z(x) es la imagen de alturas.",set:{mode:"c",h:100,th:12,R:6,v:2}},
+ {t:"Modo intermitente: la viga oscila",s:"La viga vibra en su resonancia y la punta toca un instante en cada ciclo. Al acercarse a la superficie la amplitud disminuye; el lazo mantiene constante la amplitud. La imagen de alturas es la misma, sin arrastrar la muestra.",set:{mode:"t",h:100,th:12,R:6,v:2}},
+ {t:"La señal de error en contacto",s:"Barremos más rápido para que el lazo se retrase. Al subir el escalón la flexión aumenta (más fuerza); al bajar cae hasta cero y la punta se despega. La señal de error marca los bordes.",set:{mode:"c",h:100,th:20,R:10,v:7}},
+ {t:"La señal de error en intermitente",s:"El sentido se invierte: al subir el escalón la amplitud disminuye, y al bajar crece hasta la amplitud libre, cuando la punta ya no toca. Mismo relieve, señal distinta: hay que saber qué canal se está viendo.",set:{mode:"t",h:100,th:20,R:10,v:7}},
+ {t:"Una punta real tiene ancho",s:"En los dos modos el costado del cono toca la pared antes que el ápice: la pared vertical aparece inclinada (ancho cercano a h · tan θ) y las mesetas se ensanchan.",set:{mode:"t",h:100,th:32,R:10,v:2}},
+ {t:"Lo que sí es confiable",s:"La altura y el periodo se miden bien aunque los anchos no. Por eso una rejilla de periodo y altura certificados sirve para calibrar el escáner, en cualquiera de los dos modos.",set:{mode:"t",h:60,th:20,R:10,v:2}}],setP);
 (function(){var ids=["d_pn","d_pm","d_hn","d_hm","d_k","d_f","d_th"],D=load("cfata_afm")||{};ids.forEach(function(i){if(D[i]!=null)$(i).value=D[i];$(i).addEventListener("input",calc);});
  function calc(){var d={};ids.forEach(function(i){d[i]=$(i).value;});store("cfata_afm",d);var pn=num(d.d_pn),pm=num(d.d_pm),hn=num(d.d_hn),hm=num(d.d_hm),k=num(d.d_k),f=num(d.d_f),th=num(d.d_th),R=[];
   if(ok(pn)&&ok(pm))R.push(["Error en el periodo",fmt(100*(pm-pn)/pn,2)+" %"]);
@@ -184,7 +214,7 @@ tour([
   out(R,"Escribimos al menos un par de datos.");return R;}
  $("use").onclick=function(){var h=num($("d_hm").value)||num($("d_hn").value),th=num($("d_th").value),o={};if(ok(h))o.h=Math.max(20,Math.min(200,Math.round(h/5)*5));if(ok(th))o.th=Math.max(5,Math.min(40,Math.round(th)));setP(o);$("fbk").textContent="La figura usa la altura y el semiángulo anotados (dentro del intervalo del modelo: 20 a 200 nm, 5° a 40°).";};
  $("cpy").onclick=function(){var R=calc();copyText("AFM · rejilla de calibración\n"+ids.map(function(i){return $(i).previousElementSibling.textContent+": "+($(i).value||"sin dato");}).join("\n")+"\n\nResultados\n"+R.map(function(r){return r[0]+": "+r[1];}).join("\n")+"\n\nFuente: Strupiechonski, E., & De Luna Bugallo, A. (2026). Exploradores AFM, SEM y Raman [recurso interactivo]. https://elodiestrupiechonski.github.io/CFATA-exploradores/");};
- $("png").onclick=function(){savePNG(cv,"AFM_explorador.png","AFM (modelo): h = "+P.h+" nm, semiángulo "+P.th+"°, radio del ápice "+P.R+" nm, rapidez "+P.v);};
+ $("png").onclick=function(){savePNG(cv,"AFM_explorador.png","AFM (modelo, modo "+(P.mode==="c"?"contacto":"intermitente")+"): h = "+P.h+" nm, semiángulo "+P.th+"°, radio del ápice "+P.R+" nm, rapidez "+P.v);};
  calc();})();
 loop();
 })();
